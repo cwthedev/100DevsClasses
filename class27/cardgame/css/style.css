@@ -10,13 +10,25 @@
 /******************************************
 /* LAYOUT
 /*******************************************/
-img, iframe{
-  display: block;
+img{
   margin: 0 auto;
-  max-width: 500px;
+  padding: 1em;
 }
-section{
-  display: inline-block;
+#gameboard{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+#gameboard > section{
+  min-width: 50%;
+}
+#gameboard >section > *{
+  display: block;
+  text-align: center;
+}
+
+#verdict{
+  align-self: flex-end;
 }
 
 /******************************************

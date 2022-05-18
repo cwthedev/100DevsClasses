@@ -7,7 +7,6 @@ if(!localStorage.getItem('deckID')){
 }
 
 
-//Example fetch using pokemonapi.co
 
 document.querySelector('button').addEventListener('click', getFetch)
 
@@ -27,9 +26,12 @@ function getFetch(){
         let oneValue = faceCards[cardArr[0].value] || +cardArr[0].value
         let twoValue = faceCards[cardArr[1].value] || +cardArr[1].value
         console.log (`${oneValue} VS ${twoValue}`)
+        if (+oneValue > twoValue) document.querySelector('#verdict').innerText = 'Player 1 Wins!'
+        else if (+oneValue < twoValue) document.querySelector('#verdict').innerText = 'Player 2 Wins!'
+        else document.querySelector('#verdict').innerText = 'WAR!!!'
       })
       .catch(err => {
           console.log(`error ${err}`)
           fetch(`https://www.deckofcardsapi.com/api/deck/${localStorage.getItem('deckID')}/shuffle/`)
       });
-}
+}document.querySelector()

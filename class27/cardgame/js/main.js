@@ -1,23 +1,35 @@
+// get a deck ID from the API, reusing the deckID variable unnecessarily
+
+if(!localStorage.getItem('deckID')){
+  fetch('https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
+  .then(res => res.json())
+  .then(data => localStorage.setItem('deckID', data.deck_id))
+}
+
+
 //Example fetch using pokemonapi.co
+
 document.querySelector('button').addEventListener('click', getFetch)
 
 function getFetch(){
-  const choice = document.querySelector('input').value;
- // const url = 'https://pokeapi.co/api/v2/pokemon/'+choice
-    const url = 'https://api.nasa.gov/planetary/apod?api_key=UKdY1NZ3iGAaB5DV13eOS4CdiXnNvSZuTzqy8NaN&date='+choice;
+  let faceCards = {'JACK':11, 'QUEEN':12, 'KING':13, 'ACE':14}
+  let deckID = localStorage.getItem('deckID')
+    const url = `https://www.deckofcardsapi.com/api/deck/${deckID}/draw/?count=2`;
   fetch(url)
       .then(res => res.json()) // parse response as JSON
       .then(data => {
-        console.log(data);
-        document.querySelector('h3').innerText = data.explanation;
-        document.querySelector('h2').innerText = data.title;
-        if(data.media_type == 'image'){document.querySelector('img').src = data.hdurl;
-        document.querySelector('iframe').src = '';
-      }
-        else if (data.media_type == 'video'){document.querySelector('img').src = '';
-        document.querySelector('iframe').src = data.url;}
+        let cardArr = data.cards;
+        console.log(cardArr)
+        document.querySelector('section.player1 >img').src = cardArr[0].image
+        document.querySelector('section.player1 >span').innerText = `${cardArr[0].value} of ${cardArr[0].suit}`
+        document.querySelector('section.player2 >img').src = cardArr[1].image
+        document.querySelector('section.player2 >span').innerText = `${cardArr[1].value} of ${cardArr[1].suit}`
+        let oneValue = faceCards[cardArr[0].value] || +cardArr[0].value
+        let twoValue = faceCards[cardArr[1].value] || +cardArr[1].value
+        console.log (`${oneValue} VS ${twoValue}`)
       })
       .catch(err => {
           console.log(`error ${err}`)
+          fetch(`https://www.deckofcardsapi.com/api/deck/${localStorage.getItem('deckID')}/shuffle/`)
       });
 }

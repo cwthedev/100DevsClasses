@@ -15,7 +15,9 @@ img, iframe{
   margin: 0 auto;
   max-width: 500px;
 }
-
+section{
+  display: inline-block;
+}
 
 /******************************************
 /* ADDITIONAL STYLES

@@ -1,4 +1,5 @@
 //Example fetch using pokemonapi.co
+//original only shows data for graxx vs water type?
 document.querySelector('button').addEventListener('click', getFetch)
 
 function getFetch(){
@@ -8,11 +9,11 @@ function getFetch(){
   const url2 = 'https://pokeapi.co/api/v2/pokemon/'+poke2
   let pokeStore = []
   let pokeImg = []
+  console.log(`${poke1} vs ${poke2}`)
 
   fetch(url)
       .then(res => res.json()) // parse response as JSON
       .then(data => {
-
         pokeStore.push(data.types[0].type.name)
         pokeImg.push(data.sprites.front_shiny)
         

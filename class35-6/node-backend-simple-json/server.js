@@ -32,6 +32,7 @@ const server = http.createServer((req, res) => {
   else if (page == '/api') {
     if('student' in params){
       if(params['student']== 'leon'){
+        console.log('leon')
         res.writeHead(200, {'Content-Type': 'application/json'});
         const objToJson = {
           name: "leon",
@@ -41,6 +42,7 @@ const server = http.createServer((req, res) => {
         res.end(JSON.stringify(objToJson));
       }//student = leon
       else if(params['student'] != 'leon'){
+        console.log('not leon')
         res.writeHead(200, {'Content-Type': 'application/json'});
         const objToJson = {
           name: "unknown",
